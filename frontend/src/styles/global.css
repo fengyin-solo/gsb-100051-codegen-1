@@ -33,3 +33,55 @@ body { margin: 0; background: #f6f8fb; color: #1f2937; }
 .link { border: none; background: none; color: var(--brand); cursor: pointer; padding: 0; }
 .page-foot { display: flex; justify-content: space-between; margin-top: 8px; font-size: 12px; color: var(--muted); }
 .error-text { color: #b42318; }
+.muted { color: var(--muted); font-size: 12px; }
+
+/* 今日收口泳道 */
+.closing-tools { display: flex; gap: 10px; align-items: flex-end; }
+.tool-item span { display: block; font-size: 12px; color: var(--muted); margin-bottom: 2px; }
+.tool-item input, .tool-item select { border: 1px solid var(--border); border-radius: 6px; padding: 6px 8px; font: inherit; }
+.batch-banner { display: flex; gap: 10px; align-items: center; border: 1px solid var(--border); border-radius: 8px;
+  padding: 8px 12px; margin-bottom: 12px; font-size: 13px; background: #fff; }
+.batch-banner.open { border-color: #b6d4fe; background: #f0f6ff; }
+.batch-banner.frozen { border-color: #b9e4c9; background: #eefaf2; }
+.batch-banner.conflict { border-color: #f5c2c0; background: #fef3f2; color: #b42318; justify-content: space-between; }
+.lane-row { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-bottom: 12px; }
+.lane-card { background: #fff; border: 1px solid var(--border); border-radius: 8px; padding: 12px; display: flex; flex-direction: column; gap: 8px; }
+.lane-head { display: flex; justify-content: space-between; align-items: center; }
+.lane-head h3 { margin: 0; font-size: 15px; }
+.lane-cells { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.lane-cell { position: relative; border: 1px solid var(--border); border-radius: 6px; background: #f8fafc;
+  padding: 10px 8px; cursor: pointer; text-align: left; font: inherit; color: inherit; }
+.lane-cell:hover { border-color: var(--brand); }
+.lane-cell.active { border-color: var(--brand); box-shadow: 0 0 0 1px var(--brand) inset; }
+.lane-cell.static { cursor: default; background: #fafafa; }
+.lane-cell .cell-label { display: block; color: var(--muted); font-size: 12px; }
+.lane-cell strong { font-size: 22px; }
+.lane-cell.risk strong { color: #b42318; }
+.cell-tag { position: absolute; top: 6px; right: 6px; font-style: normal; font-size: 11px; color: #b54708;
+  background: #fffaeb; border: 1px solid #fedf89; border-radius: 10px; padding: 0 6px; }
+.lane-codes { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; min-height: 22px; }
+.risk-code { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; }
+.risk-code .inline-tag { font-size: 11px; color: var(--muted); }
+.risk-code.closed .link { color: var(--muted); text-decoration: line-through; }
+.closing-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.closing-panel { background: #fff; border: 1px solid var(--border); border-radius: 8px; padding: 12px; }
+.closing-panel h3 { margin: 0 0 8px; font-size: 14px; }
+.risk-list, .todo-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.risk-item, .todo-item { display: flex; justify-content: space-between; gap: 10px; border: 1px solid var(--border);
+  border-radius: 6px; padding: 8px 10px; }
+.risk-line { display: flex; align-items: center; gap: 8px; }
+.risk-time { margin-top: 2px; }
+.risk-note { margin-top: 4px; font-size: 12px; color: #475467; }
+.risk-ops { display: flex; flex-direction: column; gap: 6px; min-width: 220px; }
+.note-input { border: 1px solid var(--border); border-radius: 6px; padding: 6px 8px; font: inherit; resize: vertical; }
+.op-row { display: flex; gap: 6px; justify-content: flex-end; }
+.todo-item { align-items: center; }
+.badge { font-size: 11px; border-radius: 10px; padding: 1px 8px; border: 1px solid var(--border); }
+.badge.warn { color: #b54708; background: #fffaeb; border-color: #fedf89; }
+.badge.send-back { color: #b54708; background: #fffaeb; border-color: #fedf89; }
+.badge.closed { color: #027a48; background: #ecfdf3; border-color: #abefc6; }
+.btn:disabled { opacity: .55; cursor: not-allowed; }
+@media (max-width: 1100px) {
+  .lane-row { grid-template-columns: repeat(2, 1fr); }
+  .closing-grid { grid-template-columns: 1fr; }
+}

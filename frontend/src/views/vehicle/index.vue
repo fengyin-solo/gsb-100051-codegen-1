@@ -1,13 +1,13 @@
 <template>
-  <section class="page" data-module="borehole">
+  <section class="page" data-module="vehicle">
     <header class="page-head">
       <div>
-        <h2>钻孔编录管理</h2>
-        <p class="page-desc">维护钻孔，围绕钻孔编号、勘探区、孔口坐标、设计孔深做登记、筛选与状态流转。</p>
+        <h2>外业车辆管理</h2>
+        <p class="page-desc">维护外业车辆，围绕车辆编号、车牌号、车辆类型、驾驶员做登记、筛选与状态流转。</p>
       </div>
       <div class="page-actions">
-        <button class="btn primary" type="button" @click="openCreate">登记钻孔</button>
-        <button class="btn" type="button" @click="exportRows">导出钻孔编录清单</button>
+        <button class="btn primary" type="button" @click="openCreate">登记外业车辆</button>
+        <button class="btn" type="button" @click="exportRows">导出外业车辆清单</button>
       </div>
     </header>
 
@@ -57,13 +57,13 @@
           </td>
         </tr>
         <tr v-if="!rows.length">
-          <td :colspan="columns.length + 2" class="empty-state">暂无钻孔编录数据，可先登记钻孔</td>
+          <td :colspan="columns.length + 2" class="empty-state">暂无外业车辆数据，可先登记外业车辆</td>
         </tr>
       </tbody>
     </table>
 
     <footer class="page-foot">
-      <span>共 {{ total }} 条钻孔编录记录</span>
+      <span>共 {{ total }} 条外业车辆记录</span>
       <span v-if="errorMessage" class="error-text">{{ errorMessage }}</span>
     </footer>
   </section>
@@ -76,11 +76,10 @@ import { request } from '@/api/client'
 
 type Row = Record<string, string | number | null>
 
-const ENDPOINT = '/api/borehole'
-const columns = ["钻孔编号", "勘探区", "孔口坐标", "设计孔深", "终孔深度", "开孔日期", "终孔日期", "钻孔状态"]
-const actions = ["开始钻进", "登记终孔", "执行封孔"]
-const statuses = ["待施工", "钻进中", "已终孔", "已封孔", "已废弃"]
-const stats = [{"label": "施工中钻孔", "value": 0}, {"label": "已终孔钻孔", "value": 0}, {"label": "已封孔钻孔", "value": 0}]
+const ENDPOINT = '/api/vehicle'
+const columns = ["车辆编号", "车牌号", "车辆类型", "驾驶员", "出车日期", "归场时间", "车辆状态"]
+const actions = ["派车出勤", "登记归场", "报修车辆"]
+const stats = [{"label": "外业中车辆", "value": 0}, {"label": "已归场车辆", "value": 0}, {"label": "待派车车辆", "value": 0}]
 
 const rows = ref<Row[]>([])
 const total = ref(0)
@@ -98,7 +97,7 @@ function exportRows() {
 }
 
 function openCreate() {
-  errorMessage.value = '钻孔登记入口尚未接入审批流'
+  errorMessage.value = '外业车辆登记入口尚未接入审批流'
 }
 
 async function runAction(action: string, row: Row) {
@@ -109,11 +108,11 @@ async function runAction(action: string, row: Row) {
       body: JSON.stringify({ action }),
     })
     if (!response.ok) {
-      throw new Error('钻孔编录动作未生效，请稍后重试')
+      throw new Error('外业车辆动作未生效，请稍后重试')
     }
     await reload()
   } catch (error) {
-    errorMessage.value = error instanceof Error ? error.message : '钻孔编录操作失败'
+    errorMessage.value = error instanceof Error ? error.message : '外业车辆操作失败'
   }
 }
 
@@ -123,13 +122,13 @@ async function reload() {
   try {
     const response = await request(`${ENDPOINT}?${query}`)
     if (!response.ok) {
-      throw new Error('钻孔列表读取失败')
+      throw new Error('外业车辆列表读取失败')
     }
     const payload = await response.json()
     rows.value = payload.items ?? []
     total.value = payload.total ?? rows.value.length
   } catch (error) {
-    errorMessage.value = error instanceof Error ? error.message : '钻孔编录列表读取失败'
+    errorMessage.value = error instanceof Error ? error.message : '外业车辆列表读取失败'
   }
 }
 

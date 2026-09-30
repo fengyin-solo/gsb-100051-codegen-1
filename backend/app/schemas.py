@@ -244,3 +244,43 @@ class EnvironmentalEntry(BaseModel):
     field_5: str | None = None  # 调查日期
     field_6: str | None = None  # 调查人员
     field_7: str | None = None  # 调查状态
+
+class VehicleEntry(BaseModel):
+    """外业车辆明细结构。"""
+
+    field_0: str | None = None  # 车辆编号
+    field_1: str | None = None  # 车牌号
+    field_2: str | None = None  # 车辆类型
+    field_3: str | None = None  # 驾驶员
+    field_4: str | None = None  # 出车日期
+    field_5: str | None = None  # 归场时间
+    field_6: str | None = None  # 停放位置
+    field_7: str | None = None  # 车辆状态
+
+
+class ClosingDispositionPayload(BaseModel):
+    """今日收口：对泳道里一条风险记录提交处置结论。"""
+
+    business_day: str
+    module: str
+    entry_id: int
+    conclusion: str  # 退回补录 / 现场核实闭环
+    note: str | None = None
+    operator: str = "值班管理员"
+    request_id: str | None = None  # 幂等键，前端重试时复用同一编号
+    version: int | None = None  # 看板版本号，防止覆盖别人刚提交的处置
+
+
+class TodoCompletePayload(BaseModel):
+    """退回补录待办完成回执。"""
+
+    operator: str = "值班管理员"
+    request_id: str | None = None
+
+
+class ClosingBatchPayload(BaseModel):
+    """批次收口提交：把业务日标记为已收口并冻结汇总缓存。"""
+
+    operator: str = "值班管理员"
+    request_id: str | None = None
+    version: int | None = None

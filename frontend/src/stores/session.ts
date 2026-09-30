@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 
 export const useSessionStore = defineStore('session', {
   state: () => ({
-    operator: '值班管理员',
+    operator: '值班管理员甲',
     shiftLabel: '白班 08:00-20:00',
     scope: '地质勘探数据管理平台',
   }),
@@ -12,6 +12,9 @@ export const useSessionStore = defineStore('session', {
   actions: {
     setShift(label: string) {
       this.shiftLabel = label
+    },
+    setOperator(name: string) {
+      this.operator = name
     },
   },
 })
