@@ -173,6 +173,36 @@ class EquipmentEntry(BaseModel):
     field_6: str | None = None  # 使用人员
     field_7: str | None = None  # 仪器状态
 
+class FieldVehicleEntry(BaseModel):
+    """外业车辆明细结构。"""
+
+    field_0: str | None = None  # 车辆编号
+    field_1: str | None = None  # 车牌号
+    field_2: str | None = None  # 车辆类型
+    field_3: str | None = None  # 责任司机
+    field_4: str | None = None  # 所在勘探区
+    field_5: str | None = None  # 出车时间
+    field_6: str | None = None  # 预计归队
+    field_7: str | None = None  # 车辆状态
+
+class RiskDispositionPayload(BaseModel):
+    """风险格处置（退回补录 / 现场整改）入参。"""
+
+    conclusion: str = Field(description="处置结论：退回补录 或 现场整改")
+    reason: str | None = Field(default=None, description="处置说明，会写入台账留痕")
+    operator: str | None = Field(default=None, description="处置账号，用于操作留痕")
+    request_id: str | None = Field(default=None, description="前端生成的幂等号，重试不重复计数")
+    expected_version: int | None = Field(default=None, description="进入页面时拿到的批次版本号，用于乐观并发控制")
+
+
+class CloseBatchPayload(BaseModel):
+    """业务日收口提交入参。"""
+
+    operator: str | None = Field(default=None, description="发起收口的账号")
+    request_id: str | None = Field(default=None, description="幂等号，同号重试不重复计数")
+    expected_version: int | None = Field(default=None, description="乐观锁：当前批次版本号")
+    force: bool = Field(default=False, description="仍有未清风险时是否强制收口（默认拦截）")
+
 class HydroEntry(BaseModel):
     """水文观测点明细结构。"""
 

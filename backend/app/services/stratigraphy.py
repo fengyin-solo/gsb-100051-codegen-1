@@ -58,4 +58,12 @@ class StratigraphyService:
         entry["status"] = target
         entry["pending"] = target != STATUS_ORDER[-1]
         entry["abnormal"] = action in NEGATIVE_ACTIONS
+        self._touch_close_cache()
         return entry, f"地层单元已{action}"
+
+    @staticmethod
+    def _touch_close_cache() -> None:
+        # 台账动作改变了风险/待办，令今日收口泳道的汇总缓存失效。
+        from app.services.close import close_service
+
+        close_service.invalidate_all()

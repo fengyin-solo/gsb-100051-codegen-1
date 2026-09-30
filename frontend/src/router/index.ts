@@ -4,6 +4,7 @@ import Dashboard from '@/views/Dashboard.vue'
 const Borehole = () => import('@/views/borehole/index.vue')
 const Core = () => import('@/views/core/index.vue')
 const Stratigraphy = () => import('@/views/stratigraphy/index.vue')
+const FieldVehicle = () => import('@/views/field_vehicle/index.vue')
 const Geophysics = () => import('@/views/geophysics/index.vue')
 const Geochem = () => import('@/views/geochem/index.vue')
 const Assay = () => import('@/views/assay/index.vue')
@@ -27,6 +28,7 @@ const router = createRouter({
     { path: '/borehole', name: 'borehole', component: Borehole },
     { path: '/core', name: 'core', component: Core },
     { path: '/stratigraphy', name: 'stratigraphy', component: Stratigraphy },
+    { path: '/field_vehicle', name: 'field_vehicle', component: FieldVehicle },
     { path: '/geophysics', name: 'geophysics', component: Geophysics },
     { path: '/geochem', name: 'geochem', component: Geochem },
     { path: '/assay', name: 'assay', component: Assay },
